@@ -40,6 +40,13 @@ body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;back
 .bar input{flex:1;font:inherit;font-size:16px;border:none;border-radius:22px;padding:11px 16px;outline:none}
 .bar button{width:46px;height:46px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:20px;cursor:pointer}
 .fab{position:absolute;right:12px;top:84px;z-index:5;font:700 12.5px 'DM Sans',sans-serif;background:#2B211C;color:#D9B48F;border:1px solid #C9A96E;border-radius:20px;padding:8px 14px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.wm{position:fixed;left:8px;top:50%;transform:translateY(-50%);z-index:25;display:flex;flex-direction:column;gap:8px;opacity:.38;transition:opacity .2s}
+.wm:hover,.wm:focus-within{opacity:1}
+@media(max-width:600px){.wm{top:auto;bottom:78px;left:50%;transform:translateX(-50%);flex-direction:row}.wm button{width:36px;height:36px;font-size:15px}.wm button span{display:none}}
+.wm button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(201,169,110,.7);background:rgba(43,33,28,.85);color:#F3E6CF;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative}
+.wm button.on{background:#C9A96E;color:#2B211C}
+.wm button span{position:absolute;left:48px;white-space:nowrap;font:600 12px 'DM Sans',sans-serif;background:#2B211C;color:#FAF6F1;padding:4px 9px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .15s}
+.wm button:hover span,.wm button:focus span{opacity:1}
 .empty{color:#EFE7DD;text-align:center;padding:40px;font-size:15px;line-height:1.6}
 /* ---------- invitación (fuera del chat) ---------- */
 .veil{position:fixed;inset:0;background:rgba(15,12,10,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px;animation:fade .3s ease-out}
@@ -104,7 +111,6 @@ body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;back
 <div class="phone" id="app" hidden>
   <div class="top"><img id="logo" alt=""><div><b id="nom"></b><small id="st">en línea</small></div></div>
   <div class="demo">Demostración interactiva del asistente</div>
-  <button class="fab" id="fab" hidden>📋 Ver panel de la clínica</button>
   <div class="chat" id="chat"><div class="sep">HOY</div></div>
   <form class="bar" id="f"><input id="q" placeholder="Escriba un mensaje" autocomplete="off" aria-label="Mensaje"><button aria-label="Enviar">➤</button></form>
 </div>
@@ -134,6 +140,11 @@ body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;back
     <div class="revs"><h3>Reseñas recientes</h3><p class="s">Ejemplos ilustrativos de lo que el sistema pide y recibe automáticamente.</p><div class="rv" id="rv"></div></div>
   </div>
 </div>
+<nav class="wm" id="wm" aria-label="Navegación de la demostración" hidden>
+  <button id="wmChat" class="on" aria-label="Ir al chat">💬<span>Chat</span></button>
+  <button id="wmPanel" aria-label="Ir a la agenda de la clínica">📋<span>Agenda de la clínica</span></button>
+  <button id="wmReset" aria-label="Reiniciar la demostración">↺<span>Reiniciar demo</span></button>
+</nav>
 <div class="toasts" id="toasts"></div>
 
 <p class="empty" id="vacio" hidden>Demostración de asistente virtual.<br>Escanee el código que le compartieron para probarla.</p>
@@ -233,10 +244,13 @@ function invitar(tipo){
   else if(paciente){ $('invQue').textContent='la cita de '+corto(paciente.n); }
   $('veil').hidden=false;
 }
-$('invNo').onclick=()=>{ $('veil').hidden=true; $('fab').hidden=false; };
-$('invGo').onclick=()=>{ $('veil').hidden=true; $('fab').hidden=false; abrirPanel(); };
-$('fab').onclick=abrirPanel;
-$('back').onclick=()=>{ $('panel').hidden=true; };
+$('invNo').onclick=()=>{ $('veil').hidden=true; };
+$('invGo').onclick=()=>{ $('veil').hidden=true; abrirPanel(); };
+function verChat(){ $('panel').hidden=true; $('wmChat').classList.add('on'); $('wmPanel').classList.remove('on'); }
+$('back').onclick=verChat;
+$('wmChat').onclick=verChat;
+$('wmPanel').onclick=()=>{ $('veil').hidden=true; abrirPanel(); };
+$('wmReset').onclick=()=>{ location.reload(); };
 
 // ---------- panel de la clínica ----------
 const COLS=[
@@ -254,8 +268,8 @@ function abrirPanel(){
     (C.panel.resenas||[]).slice(0,2).forEach(r=>pintarResena(r));
     rIdx=2;
   } else if(paciente && !fichas.some(f=>f.id==='yo')) fichas.unshift(Object.assign({id:'yo'},paciente));
-  $('panel').hidden=false; pintar();
-  if(paciente) setTimeout(()=>toast('📥 Nueva cita de '+paciente.n+' · agendada por la IA hace un momento'),500);
+  $('panel').hidden=false; $('wmPanel').classList.add('on'); $('wmChat').classList.remove('on'); pintar();
+  if(paciente && !paciente.avisado){ paciente.avisado=true; setTimeout(()=>toast('📥 Nueva cita de '+paciente.n+' · agendada por la IA hace un momento'),500); }
 }
 function pintar(){
   const b=$('board'); b.innerHTML='';
@@ -326,7 +340,7 @@ async function iniciar(){
   $('s1').textContent = C.sede.nombre; $('s2').textContent = C.sede2||'';
   if(!C.sede2) $('s2').hidden=true;
   if(!C.panel){ C.panel={agenda:[],resenas:[]}; }
-  $('app').hidden = false;
+  $('app').hidden = false; $('wm').hidden = false;
   $('f').onsubmit = e=>{ e.preventDefault(); const q=$('q'); enviar(q.value); q.value=''; };
   setTimeout(()=>responder([ia(C.saludo)]), 600);
 }
