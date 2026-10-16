@@ -1,0 +1,24 @@
+{
+  "nombre": "Le Blanc",
+  "logo": "c/lb7k2-logo.jpg",
+  "rol": "Asistente Le Blanc",
+  "saludo": "¡Hola! 😊 Bienvenido a Le Blanc. Soy su asistente virtual. Puedo ayudarle con precios, horarios, ubicación o agendar su cita. ¿En qué le ayudo?",
+  "sede": { "nombre": "Sede Centro", "direccion": "Av. Teodoro Gómez de la Torre 6-58 y Bolívar" },
+  "ubicacion": "Tenemos dos sedes en Ibarra 😊 Sede Centro: Av. Teodoro Gómez de la Torre 6-58 y Bolívar. Le dejo la ubicación:",
+  "horario": "Atendemos hasta las 7:00 PM. Por aquí le respondo a cualquier hora 🕐",
+  "horas": ["10:00", "16:30"],
+  "cita": "su cita",
+  "intenciones": [
+    { "palabras": ["limpieza", "profilaxis"], "respuesta": "¡Con gusto! 😊 La limpieza (profilaxis) está en promoción 2x1 por $30: vienen dos personas y pagan una.\n\n¿Le agendo una cita?" },
+    { "palabras": ["blanque", "carilla", "sonrisa", "ortodon", "bracket", "alinead", "implant", "estetic"], "respuesta": "¡Excelente elección! 😊 Ese tratamiento empieza con una valoración, para que el especialista vea su caso y le dé un plan a su medida." },
+    { "palabras": ["precio", "cuanto", "cuesta", "valor", "costo"], "respuesta": "Con gusto le ayudo 😊 El valor depende de cada caso, por eso el primer paso es una valoración con el especialista." }
+  ],
+  "urgencia": {
+    "palabras": ["duel", "dolor", "sangr", "inflam", "hinch", "golpe", "urgen", "emergen", "roto", "rompi", "fiebre"],
+    "respuesta": "Lamento mucho la molestia 😟 Por su seguridad no doy diagnósticos por este medio. Ya avisé al doctor de turno 👨‍⚕️",
+    "aviso": "AVISO ENVIADO AL DOCTOR (SIMULADO)",
+    "seguimiento": "📞 El doctor le llamará en los próximos minutos a este número. Si prefiere, puede venir hoy: le atendemos con prioridad."
+  },
+  "resena": true,
+  "otro": "Gracias por escribirnos 😊 Para darle la mejor respuesta, le propongo una valoración con nuestro especialista."
+}
