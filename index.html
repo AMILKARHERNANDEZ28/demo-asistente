@@ -5,12 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Asistente · Demostración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
 html,body{height:100%}
 body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#1b1612;display:flex;align-items:center;justify-content:center}
-.phone{width:100%;max-width:430px;height:100%;background:#EFE7DD;display:flex;flex-direction:column;overflow:hidden}
+/* ---------- chat ---------- */
+.phone{width:100%;max-width:430px;height:100%;background:#EFE7DD;display:flex;flex-direction:column;overflow:hidden;position:relative}
 @media(min-width:600px){.phone{height:92vh;max-height:900px;border-radius:36px;border:10px solid #0f0c0a;box-shadow:0 30px 80px rgba(0,0,0,.5)}}
 .top{background:#1F2C34;color:#fff;display:flex;align-items:center;gap:10px;padding:14px 14px 12px}
 .top img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#fff}
@@ -36,22 +39,110 @@ body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;back
 .bar{display:flex;gap:8px;padding:8px 10px 12px;background:#EFE7DD}
 .bar input{flex:1;font:inherit;font-size:16px;border:none;border-radius:22px;padding:11px 16px;outline:none}
 .bar button{width:46px;height:46px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:20px;cursor:pointer}
+.fab{position:absolute;right:12px;top:84px;z-index:5;font:700 12.5px 'DM Sans',sans-serif;background:#2B211C;color:#D9B48F;border:1px solid #C9A96E;border-radius:20px;padding:8px 14px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .empty{color:#EFE7DD;text-align:center;padding:40px;font-size:15px;line-height:1.6}
+/* ---------- invitación (fuera del chat) ---------- */
+.veil{position:fixed;inset:0;background:rgba(15,12,10,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px;animation:fade .3s ease-out}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.invite{max-width:400px;width:100%;background:#2B211C;color:#FAF6F1;border:1px solid #C9A96E;border-radius:22px;padding:28px 26px;font-family:'DM Sans',sans-serif;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.9)}to{transform:none}}
+.invite small{display:block;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#C9A96E;font-weight:700}
+.invite h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:32px;line-height:1.1;margin:10px 0 10px}
+.invite h2 i{color:#D9B48F}
+.invite p{font-size:15px;line-height:1.5;color:#D8CFC6}
+.invite .acts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.invite button{font:700 15px 'DM Sans',sans-serif;border-radius:30px;padding:14px;cursor:pointer;border:none}
+.invite .go{background:#C9A96E;color:#2B211C}
+.invite .no{background:transparent;color:#D8CFC6;border:1px solid #5a4a40}
+/* ---------- panel de la clínica ---------- */
+.panel{position:fixed;inset:0;background:#FAF6F1;color:#2B211C;font-family:'DM Sans',sans-serif;overflow-y:auto;z-index:10;animation:fade .35s ease-out}
+.ph{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#2B211C;color:#FAF6F1;position:sticky;top:0;z-index:3}
+.ph img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#fff}
+.ph b{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:1px}
+.ph span{font-size:12.5px;color:#C9A96E;display:block}
+.ph .sp{flex:1}
+.ph button{font:700 13px 'DM Sans',sans-serif;background:transparent;color:#FAF6F1;border:1px solid #6b5a4e;border-radius:20px;padding:8px 14px;cursor:pointer}
+.ribbon{background:#C9A96E;color:#2B211C;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:5px}
+.pw{max-width:1280px;margin:0 auto;padding:18px}
+.tabs{display:flex;gap:6px;background:#EDE5DA;padding:5px;border-radius:12px;width:max-content;margin-bottom:14px}
+.tabs span{padding:8px 16px;border-radius:9px;font-size:13.5px}.tabs .on{background:#fff;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid #E4D9CC;border-radius:14px;padding:12px 14px}
+.kpi b{font-size:26px;display:block;line-height:1.1}.kpi span{font-size:12.5px;color:#5A4A40}
+.kpi.gold{background:#2B211C;border-color:#2B211C}.kpi.gold b{color:#D9B48F}.kpi.gold span{color:#D8CFC6}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.hint{font-size:13px;color:#5A4A40;margin-bottom:10px}
+.board{display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{background:#F1E9E0;border-radius:14px;padding:10px;min-height:300px;transition:background .15s}
+.col.over{background:#E8D9C4}
+.col h3{font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.col h3 em{font-style:normal;background:#2B211C;color:#D9B48F;border-radius:10px;padding:1px 8px;font-size:12px}
+.col p.s{font-size:11.5px;color:#8a7f76;margin:2px 0 10px}
+.card{background:#fff;border:1px solid #E4D9CC;border-radius:12px;padding:10px 10px 8px;margin-bottom:8px;cursor:grab;user-select:none;transition:transform .15s,box-shadow .15s}
+.card:hover{box-shadow:0 6px 16px rgba(43,33,28,.12)}
+.card.drag{opacity:.4}
+.card b{font-size:14px;display:block}.card div{font-size:12.5px;color:#5A4A40;margin-top:2px}
+.card .ft{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.chip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;background:#EDE5DA;color:#5A4A40}
+.chip.ia{background:#E3F2E6;color:#2E8B57}
+.card button{font:700 12px 'DM Sans',sans-serif;border:none;background:#2B211C;color:#D9B48F;border-radius:14px;padding:4px 10px;cursor:pointer}
+.card.yo{border:2px solid #C9A96E;background:#FFF9EE;animation:glow 1.6s ease-in-out 3}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,0)}50%{box-shadow:0 0 0 8px rgba(201,169,110,.35)}}
+.card .new{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#C9A96E;color:#2B211C;border-radius:8px;padding:2px 7px;margin-bottom:5px}
+.stars{color:#E2A93B;letter-spacing:1px}
+.revs{margin-top:18px}
+.revs h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:26px;margin-bottom:4px}
+.revs p.s{font-size:12px;color:#8a7f76;margin-bottom:10px}
+.rv{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.r{background:#fff;border:1px solid #E4D9CC;border-radius:14px;padding:12px 14px;animation:pop .35s ease-out}
+.r b{font-size:13px}.r p{font-size:13px;color:#5A4A40;margin-top:4px;line-height:1.45}
+.toasts{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:30;width:min(92vw,420px)}
+.toast{background:#2B211C;color:#FAF6F1;border-left:4px solid #C9A96E;border-radius:12px;padding:12px 14px;font:500 14px 'DM Sans',sans-serif;box-shadow:0 12px 30px rgba(0,0,0,.3);animation:pop .3s ease-out}
 </style>
 </head>
 <body>
 <div class="phone" id="app" hidden>
   <div class="top"><img id="logo" alt=""><div><b id="nom"></b><small id="st">en línea</small></div></div>
   <div class="demo">Demostración interactiva del asistente</div>
+  <button class="fab" id="fab" hidden>📋 Ver panel de la clínica</button>
   <div class="chat" id="chat"><div class="sep">HOY</div></div>
   <form class="bar" id="f"><input id="q" placeholder="Escriba un mensaje" autocomplete="off" aria-label="Mensaje"><button aria-label="Enviar">➤</button></form>
 </div>
+
+<div class="veil" id="veil" hidden>
+  <div class="invite" role="dialog" aria-modal="true" aria-labelledby="invT">
+    <small>✨ Fuera del chat · Vista de la clínica</small>
+    <h2 id="invT">¿Quiere ver cómo llegó <i id="invQue">esta cita</i> a su agenda?</h2>
+    <p id="invTxt">Así la vería su equipo, en su propia web: cada paciente, su estado y el siguiente paso.</p>
+    <div class="acts"><button class="go" id="invGo">Ver mi agenda</button><button class="no" id="invNo">Seguir probando el chat</button></div>
+  </div>
+</div>
+
+<div class="panel" id="panel" hidden>
+  <div class="ph"><img id="plogo" alt=""><div><b id="pnom"></b><span id="ptit">Panel de citas</span></div><div class="sp"></div><button id="back">← Volver al chat</button></div>
+  <div class="ribbon">Demostración · pacientes y reseñas de ejemplo</div>
+  <div class="pw">
+    <div class="tabs"><span class="on" id="s1"></span><span id="s2"></span></div>
+    <div class="kpis">
+      <div class="kpi"><b id="k1">0</b><span>Citas en agenda</span></div>
+      <div class="kpi"><b id="k2">0</b><span>Confirmadas</span></div>
+      <div class="kpi"><b id="k3">0</b><span>Agendadas por la IA</span></div>
+      <div class="kpi gold"><b id="k4">4.9 ★</b><span id="k4s">Reseñas nuevas: 0</span></div>
+    </div>
+    <p class="hint" id="hint">Arrastre las fichas entre columnas (o use el botón →) y vea lo que el sistema hace solo.</p>
+    <div class="board" id="board"></div>
+    <div class="revs"><h3>Reseñas recientes</h3><p class="s">Ejemplos ilustrativos de lo que el sistema pide y recibe automáticamente.</p><div class="rv" id="rv"></div></div>
+  </div>
+</div>
+<div class="toasts" id="toasts"></div>
+
 <p class="empty" id="vacio" hidden>Demostración de asistente virtual.<br>Escanee el código que le compartieron para probarla.</p>
 <script>
 // Motor genérico: el comportamiento de cada cliente vive en c/<id>.json (?c=<id>).
 const id = new URLSearchParams(location.search).get('c');
-let C = null, esperandoHora = false;
+let C = null, estado = null, horaElegida = null, tratamiento = 'Valoración', invitado = false;
 const chat = document.getElementById('chat'), st = document.getElementById('st');
+const $ = s => document.getElementById(s);
 
 function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
 function hora(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
@@ -87,28 +178,34 @@ function responder(pasos){
 }
 function ia(text, extra){ const f=()=>{ msg(text,'in',C.rol); if(extra) extra(); }; f.len=text.length; return f; }
 function pausa(ms){ return {pausa:ms}; }
-function separador(text){ const f=()=>sep(text); f.inmediato=true; return f; }
+function accion(fn){ fn.inmediato=true; return fn; }
 function oferta(){ return 'Tengo disponible mañana a las '+C.horas[0]+' o a las '+C.horas[1]+'. ¿Cuál le acomoda mejor?'; }
-function ofrecer(intro){ esperandoHora=true; return [ia(intro+'\n\n'+oferta(), ()=>botones(C.horas))]; }
+function ofrecer(intro){ estado='hora'; return [ia(intro+'\n\n'+oferta(), ()=>botones(C.horas))]; }
 function tiene(s, palabras){ return palabras.some(p=>s.includes(norm(p))); }
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+function corto(n){ const w=n.split(/\s+/).filter(Boolean); return /^(dr|dra|doctor|doctora|sr|sra|srta|lic|ing)\.?$/i.test(w[0]||'') && w[1] ? w[0]+' '+w[1] : (w[0]||n); }
 
-function confirmar(h){
+let paciente = null; // la cita que agenda quien prueba la demo
+function confirmar(nombre){
+  paciente = { n:nombre, t:tratamiento, h:horaElegida, o:'WhatsApp IA', c:'agendada', yo:true };
   return [
-    ia('Listo ✅ '+C.cita.charAt(0).toUpperCase()+C.cita.slice(1)+' quedó agendada para mañana a las '+h+' en '+C.sede.nombre+'.\n\nLe dejo la ubicación:', ubicacion),
+    ia('Listo ✅ '+corto(nombre)+', '+C.cita+' quedó agendada para mañana a las '+horaElegida+' en '+C.sede.nombre+'.\n\nLe dejo la ubicación:', ubicacion),
     ia('Un día antes le enviaré un recordatorio para confirmar 📅'),
-    pausa(2200), separador('UN DÍA ANTES (SIMULADO)'),
-    ia('📅 Le recordamos '+C.cita+' de mañana a las '+h+' en '+C.sede.nombre+'. ¿Nos confirma su asistencia?', ()=>botones(['✅ Confirmar','🔁 Reprogramar']))
+    pausa(2000), accion(()=>sep('UN DÍA ANTES (SIMULADO)')),
+    ia('📅 Le recordamos '+C.cita+' de mañana a las '+horaElegida+' en '+C.sede.nombre+'. ¿Nos confirma su asistencia?', ()=>botones(['✅ Confirmar','🔁 Reprogramar'])),
+    pausa(2500), accion(()=>invitar('cita'))
   ];
 }
 function intencion(t){
   const s=norm(t);
-  if(esperandoHora){
+  if(estado==='nombre'){ estado=null; const n=t.replace(/[^\p{L}\s.'-]/gu,'').trim().slice(0,28)||'Paciente'; return confirmar(cap(n)); }
+  if(estado==='hora'){
     const h=C.horas.find(x=>s.includes(x.split(':')[0])) || (/tarde/.test(s)?C.horas[1]:(/manana|temprano|primera/.test(s)?C.horas[0]:null));
-    if(h){ esperandoHora=false; return confirmar(h); }
+    if(h){ horaElegida=h; estado='nombre'; return [ia('Perfecto, mañana a las '+h+' 🙌 ¿A nombre de quién registro la cita?')]; }
   }
-  if(tiene(s,C.urgencia.palabras)) return [ia(C.urgencia.respuesta), pausa(900), separador(C.urgencia.aviso), ia(C.urgencia.seguimiento)];
-  for(const it of C.intenciones){ if(tiene(s,it.palabras)) return ofrecer(it.respuesta); }
-  if(/donde|ubica|direcc|sede|llegar|mapa/.test(s)) return [ia(C.ubicacion, ubicacion), ia('¿Desea que le agende una cita? '+oferta(), ()=>{ esperandoHora=true; botones(C.horas); })];
+  if(tiene(s,C.urgencia.palabras)) return [ia(C.urgencia.respuesta), pausa(900), accion(()=>sep(C.urgencia.aviso)), ia(C.urgencia.seguimiento), pausa(2500), accion(()=>invitar('aviso'))];
+  for(const it of C.intenciones){ if(tiene(s,it.palabras)){ tratamiento=it.etiqueta||tratamiento; return ofrecer(it.respuesta); } }
+  if(/donde|ubica|direcc|sede|llegar|mapa/.test(s)) return [ia(C.ubicacion, ubicacion), ia('¿Desea que le agende una cita? '+oferta(), ()=>{ estado='hora'; botones(C.horas); })];
   if(/horario|atienden|abren|cierran|sabado|domingo|hora/.test(s)) return ofrecer(C.horario);
   if(/cita|agend|turno|reserv|valorac|consulta/.test(s)) return ofrecer('¡Claro que sí! 😊');
   if(/gracias|perfecto|listo|genial|^ok/.test(s)) return [ia('¡A usted! Aquí estoy para lo que necesite. Que tenga un excelente día.')];
@@ -119,13 +216,102 @@ function enviar(t){
   t=t.trim(); if(!t) return;
   msg(t,'out');
   if(t==='✅ Confirmar'){
+    if(paciente && paciente.c==='agendada') paciente.c='confirmada';
     const pasos=[ia('¡Gracias! Su asistencia está confirmada ✅ Le esperamos.')];
-    if(C.resena) pasos.push(pausa(1800), separador('DESPUÉS DE SU VISITA (SIMULADO)'), ia('¡Gracias por visitarnos! ¿Nos regala su opinión? ⭐⭐⭐⭐⭐', ()=>botones(['Dejar reseña en Google'])));
+    if(C.resena) pasos.push(pausa(1800), accion(()=>sep('DESPUÉS DE SU VISITA (SIMULADO)')), ia('¡Gracias por visitarnos! ¿Nos regala su opinión? ⭐⭐⭐⭐⭐', ()=>botones(['Dejar reseña en Google'])));
     responder(pasos); return;
   }
-  if(t==='🔁 Reprogramar'){ esperandoHora=true; responder([ia('Sin problema 😊 '+oferta(), ()=>botones(C.horas))]); return; }
+  if(t==='🔁 Reprogramar'){ estado='hora'; responder([ia('Sin problema 😊 '+oferta(), ()=>botones(C.horas))]); return; }
   if(t==='Dejar reseña en Google'){ responder([ia('¡Muchas gracias! Su opinión ayuda a otras personas a encontrarnos 💛')]); return; }
   responder(intencion(t));
+}
+
+// ---------- invitación, fuera del chat ----------
+function invitar(tipo){
+  if(invitado) return; invitado=true;
+  if(tipo==='aviso'){ const h=$('invT'); h.textContent='¿Quiere ver cómo su equipo '; const i=document.createElement('i'); i.textContent='organiza a cada paciente'; h.append(i,'?'); $('invTxt').textContent='El doctor recibe el aviso y su equipo ve a cada paciente, su estado y el siguiente paso, en su propia web.'; }
+  else if(paciente){ $('invQue').textContent='la cita de '+corto(paciente.n); }
+  $('veil').hidden=false;
+}
+$('invNo').onclick=()=>{ $('veil').hidden=true; $('fab').hidden=false; };
+$('invGo').onclick=()=>{ $('veil').hidden=true; $('fab').hidden=false; abrirPanel(); };
+$('fab').onclick=abrirPanel;
+$('back').onclick=()=>{ $('panel').hidden=true; };
+
+// ---------- panel de la clínica ----------
+const COLS=[
+  {k:'nuevo', t:'Nuevos contactos', s:'Escribieron por WhatsApp, web o redes'},
+  {k:'agendada', t:'Agendadas', s:'La IA o la web reservaron la hora'},
+  {k:'confirmada', t:'Confirmadas', s:'Respondieron el recordatorio'},
+  {k:'asistio', t:'Asistieron', s:'Se envía la solicitud de reseña'},
+  {k:'resena', t:'Reseña ⭐', s:'Dejaron su opinión en Google'}
+];
+let fichas=null, nuevasResenas=0, rIdx=0;
+function abrirPanel(){
+  if(!fichas){
+    fichas=(C.panel.agenda||[]).map((x,i)=>Object.assign({id:'p'+i},x));
+    if(paciente) fichas.unshift(Object.assign({id:'yo'},paciente));
+    (C.panel.resenas||[]).slice(0,2).forEach(r=>pintarResena(r));
+    rIdx=2;
+  } else if(paciente && !fichas.some(f=>f.id==='yo')) fichas.unshift(Object.assign({id:'yo'},paciente));
+  $('panel').hidden=false; pintar();
+  if(paciente) setTimeout(()=>toast('📥 Nueva cita de '+paciente.n+' · agendada por la IA hace un momento'),500);
+}
+function pintar(){
+  const b=$('board'); b.innerHTML='';
+  COLS.forEach(col=>{
+    const el=document.createElement('div'); el.className='col'; el.dataset.k=col.k;
+    const lista=fichas.filter(f=>f.c===col.k);
+    const h=document.createElement('h3'); h.textContent=col.t; const em=document.createElement('em'); em.textContent=lista.length; h.appendChild(em);
+    const s=document.createElement('p'); s.className='s'; s.textContent=col.s;
+    el.append(h,s);
+    lista.forEach(f=>el.appendChild(ficha(f)));
+    el.addEventListener('dragover',e=>{ e.preventDefault(); el.classList.add('over'); });
+    el.addEventListener('dragleave',()=>el.classList.remove('over'));
+    el.addEventListener('drop',e=>{ e.preventDefault(); el.classList.remove('over'); mover(e.dataTransfer.getData('text/plain'), col.k); });
+    b.appendChild(el);
+  });
+  $('k1').textContent=fichas.filter(f=>f.c!=='nuevo').length;
+  $('k2').textContent=fichas.filter(f=>['confirmada','asistio','resena'].includes(f.c)).length;
+  $('k3').textContent=fichas.filter(f=>f.o==='WhatsApp IA' && f.c!=='nuevo').length;
+  $('k4s').textContent='Google · reseñas nuevas: '+nuevasResenas;
+}
+function ficha(f){
+  const d=document.createElement('div'); d.className='card'+(f.yo?' yo':''); d.draggable=true;
+  if(f.yo){ const n=document.createElement('span'); n.className='new'; n.textContent=f.c==='agendada'?'Usted · recién agendada':'Usted'; d.appendChild(n); }
+  const b=document.createElement('b'); b.textContent=f.n; d.appendChild(b);
+  const t=document.createElement('div'); t.textContent=f.t+(f.h&&f.h!=='—'?' · '+f.h:''); d.appendChild(t);
+  const ft=document.createElement('div'); ft.className='ft';
+  const ch=document.createElement('span'); ch.className='chip'+(f.o==='WhatsApp IA'?' ia':''); ch.textContent=f.o; ft.appendChild(ch);
+  const i=COLS.findIndex(c=>c.k===f.c);
+  if(i<COLS.length-1){ const btn=document.createElement('button'); btn.textContent='→'; btn.title='Mover a '+COLS[i+1].t; btn.onclick=e=>{ e.stopPropagation(); mover(f.id, COLS[i+1].k); }; ft.appendChild(btn); }
+  else { const s=document.createElement('span'); s.className='stars'; s.textContent='★★★★★'; ft.appendChild(s); }
+  d.appendChild(ft);
+  d.addEventListener('dragstart',e=>{ e.dataTransfer.setData('text/plain',f.id); d.classList.add('drag'); });
+  d.addEventListener('dragend',()=>d.classList.remove('drag'));
+  return d;
+}
+function mover(fid, destino){
+  const f=fichas.find(x=>x.id===fid); if(!f || f.c===destino) return;
+  f.c=destino;
+  const nom=corto(f.n);
+  if(destino==='agendada') toast('📅 Cita reservada para '+nom+' · confirmación enviada por WhatsApp');
+  if(destino==='confirmada') toast('✅ '+nom+' confirmó con un toque desde el recordatorio');
+  if(destino==='asistio') toast('⭐ Solicitud de reseña enviada a '+nom+' por WhatsApp');
+  if(destino==='resena'){ nuevasResenas++; toast('🎉 '+nom+' dejó una reseña de 5 estrellas en Google'); const r=(C.panel.resenas||[])[rIdx % Math.max(1,(C.panel.resenas||[]).length)]; rIdx++; if(r) pintarResena({n:f.n, txt:r.txt}, true); }
+  pintar();
+}
+function pintarResena(r, arriba){
+  const d=document.createElement('div'); d.className='r';
+  const s=document.createElement('div'); s.className='stars'; s.textContent='★★★★★';
+  const b=document.createElement('b'); b.textContent=r.n+' · ejemplo';
+  const p=document.createElement('p'); p.textContent='“'+r.txt+'”';
+  d.append(s,b,p);
+  const rv=$('rv'); arriba ? rv.prepend(d) : rv.appendChild(d);
+}
+function toast(t){
+  const d=document.createElement('div'); d.className='toast'; d.textContent=t; $('toasts').appendChild(d);
+  setTimeout(()=>d.remove(), 3800);
 }
 
 async function iniciar(){
@@ -134,13 +320,17 @@ async function iniciar(){
   if(!r.ok) throw new Error('no existe');
   C = await r.json();
   document.title = C.nombre+' · Asistente (demo)';
-  document.getElementById('nom').textContent = C.nombre;
-  document.getElementById('logo').src = C.logo;
-  document.getElementById('app').hidden = false;
-  document.getElementById('f').onsubmit = e=>{ e.preventDefault(); const q=document.getElementById('q'); enviar(q.value); q.value=''; };
+  $('nom').textContent = C.nombre; $('pnom').textContent = C.nombre.toUpperCase();
+  $('logo').src = C.logo; $('plogo').src = C.logo;
+  $('ptit').textContent = (C.panel&&C.panel.titulo)||'Panel de citas';
+  $('s1').textContent = C.sede.nombre; $('s2').textContent = C.sede2||'';
+  if(!C.sede2) $('s2').hidden=true;
+  if(!C.panel){ C.panel={agenda:[],resenas:[]}; }
+  $('app').hidden = false;
+  $('f').onsubmit = e=>{ e.preventDefault(); const q=$('q'); enviar(q.value); q.value=''; };
   setTimeout(()=>responder([ia(C.saludo)]), 600);
 }
-iniciar().catch(()=>{ document.getElementById('vacio').hidden = false; });
+iniciar().catch(()=>{ $('vacio').hidden = false; });
 </script>
 </body>
 </html>

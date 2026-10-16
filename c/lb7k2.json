@@ -3,22 +3,150 @@
   "logo": "c/lb7k2-logo.jpg",
   "rol": "Asistente Le Blanc",
   "saludo": "¡Hola! 😊 Bienvenido a Le Blanc. Soy su asistente virtual. Puedo ayudarle con precios, horarios, ubicación o agendar su cita. ¿En qué le ayudo?",
-  "sede": { "nombre": "Sede Centro", "direccion": "Av. Teodoro Gómez de la Torre 6-58 y Bolívar" },
+  "sede": {
+    "nombre": "Sede Centro",
+    "direccion": "Av. Teodoro Gómez de la Torre 6-58 y Bolívar"
+  },
   "ubicacion": "Tenemos dos sedes en Ibarra 😊 Sede Centro: Av. Teodoro Gómez de la Torre 6-58 y Bolívar. Le dejo la ubicación:",
   "horario": "Atendemos hasta las 7:00 PM. Por aquí le respondo a cualquier hora 🕐",
-  "horas": ["10:00", "16:30"],
+  "horas": [
+    "10:00",
+    "16:30"
+  ],
   "cita": "su cita",
   "intenciones": [
-    { "palabras": ["limpieza", "profilaxis"], "respuesta": "¡Con gusto! 😊 La limpieza (profilaxis) está en promoción 2x1 por $30: vienen dos personas y pagan una.\n\n¿Le agendo una cita?" },
-    { "palabras": ["blanque", "carilla", "sonrisa", "ortodon", "bracket", "alinead", "implant", "estetic"], "respuesta": "¡Excelente elección! 😊 Ese tratamiento empieza con una valoración, para que el especialista vea su caso y le dé un plan a su medida." },
-    { "palabras": ["precio", "cuanto", "cuesta", "valor", "costo"], "respuesta": "Con gusto le ayudo 😊 El valor depende de cada caso, por eso el primer paso es una valoración con el especialista." }
+    {
+      "palabras": [
+        "limpieza",
+        "profilaxis"
+      ],
+      "respuesta": "¡Con gusto! 😊 La limpieza (profilaxis) está en promoción 2x1 por $30: vienen dos personas y pagan una.\n\n¿Le agendo una cita?",
+      "etiqueta": "Limpieza 2x1"
+    },
+    {
+      "palabras": [
+        "blanque",
+        "carilla",
+        "sonrisa",
+        "ortodon",
+        "bracket",
+        "alinead",
+        "implant",
+        "estetic"
+      ],
+      "respuesta": "¡Excelente elección! 😊 Ese tratamiento empieza con una valoración, para que el especialista vea su caso y le dé un plan a su medida.",
+      "etiqueta": "Valoración estética"
+    },
+    {
+      "palabras": [
+        "precio",
+        "cuanto",
+        "cuesta",
+        "valor",
+        "costo"
+      ],
+      "respuesta": "Con gusto le ayudo 😊 El valor depende de cada caso, por eso el primer paso es una valoración con el especialista.",
+      "etiqueta": "Valoración"
+    }
   ],
   "urgencia": {
-    "palabras": ["duel", "dolor", "sangr", "inflam", "hinch", "golpe", "urgen", "emergen", "roto", "rompi", "fiebre"],
+    "palabras": [
+      "duel",
+      "dolor",
+      "sangr",
+      "inflam",
+      "hinch",
+      "golpe",
+      "urgen",
+      "emergen",
+      "roto",
+      "rompi",
+      "fiebre"
+    ],
     "respuesta": "Lamento mucho la molestia 😟 Por su seguridad no doy diagnósticos por este medio. Ya avisé al doctor de turno 👨‍⚕️",
     "aviso": "AVISO ENVIADO AL DOCTOR (SIMULADO)",
     "seguimiento": "📞 El doctor le llamará en los próximos minutos a este número. Si prefiere, puede venir hoy: le atendemos con prioridad."
   },
   "resena": true,
-  "otro": "Gracias por escribirnos 😊 Para darle la mejor respuesta, le propongo una valoración con nuestro especialista."
+  "otro": "Gracias por escribirnos 😊 Para darle la mejor respuesta, le propongo una valoración con nuestro especialista.",
+  "sede2": "Sede 2",
+  "panel": {
+    "titulo": "Panel de citas",
+    "agenda": [
+      {
+        "n": "Carlos R.",
+        "t": "Ortodoncia · control",
+        "h": "09:00",
+        "o": "Web",
+        "c": "asistio"
+      },
+      {
+        "n": "María J.",
+        "t": "Diseño de sonrisa",
+        "h": "12:00",
+        "o": "WhatsApp IA",
+        "c": "confirmada"
+      },
+      {
+        "n": "Luis P.",
+        "t": "Limpieza 2x1",
+        "h": "10:00",
+        "o": "WhatsApp IA",
+        "c": "confirmada"
+      },
+      {
+        "n": "Daniela V.",
+        "t": "Valoración ortodoncia",
+        "h": "11:00",
+        "o": "Web",
+        "c": "agendada"
+      },
+      {
+        "n": "Andrés T.",
+        "t": "Implantes · valoración",
+        "h": "15:00",
+        "o": "Web",
+        "c": "agendada"
+      },
+      {
+        "n": "Paola S.",
+        "t": "Blanqueamiento",
+        "h": "—",
+        "o": "WhatsApp IA",
+        "c": "nuevo"
+      },
+      {
+        "n": "Jorge M.",
+        "t": "Consulta precios",
+        "h": "—",
+        "o": "Instagram",
+        "c": "nuevo"
+      },
+      {
+        "n": "Sofía L.",
+        "t": "Limpieza",
+        "h": "09:30",
+        "o": "WhatsApp IA",
+        "c": "resena"
+      }
+    ],
+    "resenas": [
+      {
+        "n": "Sofía L.",
+        "txt": "Me recordaron la cita y me atendieron puntual. ¡Excelente trato!"
+      },
+      {
+        "n": "Carlos R.",
+        "txt": "Muy profesionales, la clínica es hermosa y todo impecable."
+      },
+      {
+        "n": "Paciente",
+        "txt": "Agendé por WhatsApp a medianoche y al día siguiente ya tenía mi cita."
+      },
+      {
+        "n": "Paciente",
+        "txt": "Me explicaron todo con paciencia. Recomendado 100%."
+      }
+    ]
+  }
 }
